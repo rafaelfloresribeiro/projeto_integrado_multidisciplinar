@@ -2,42 +2,42 @@ const conta = {
     nome: 'João Silva',
     saldo: 5000.00,
     historicoTransacoes: []
-};
+}
 
 document.addEventListener('DOMContentLoaded', function() {
-    atualizarSaldo();
-    atualizarHistorico();
-});
+    atualizarSaldo()
+    atualizarHistorico()
+})
 
 function atualizarSaldo() {
-    const saldoElement = document.getElementById('contaSaldo');
+    const saldoElement = document.getElementById('contaSaldo')
     saldoElement.textContent = conta.saldo.toLocaleString('pt-BR', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
-    });
+    })
 }
 
 function gerarCodigoUnico() {
-    const now = new Date();
-    const timestamp = now.getTime();
-    const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+    const now = new Date()
+    const timestamp = now.getTime()
+    const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0')
     
-    return `TRF-${timestamp}-${random}`;
+    return `TRF-${timestamp}-${random}`
 }
 
 function validarSaldo(valor) {
     if (valor <= 0) {
-        return { valido: false, erro: 'O valor deve ser maior que zero.' };
+        return { valido: false, erro: 'O valor deve ser maior que zero.' }
     }
     
     if (conta.saldo < valor) {
         return { 
             valido: false, 
             erro: `Saldo insuficiente. Disponível: R$ ${conta.saldo.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` 
-        };
+        }
     }
     
-    return { valido: true };
+    return { valido: true }
 }
 
 function registrarTransacao(valor, contaDestino) {
@@ -47,24 +47,24 @@ function registrarTransacao(valor, contaDestino) {
         valor: valor,
         destino: contaDestino,
         tipo: 'Transferência'
-    };
+    }
     
-    conta.saldo -= valor;
+    conta.saldo -= valor
     
-    conta.historicoTransacoes.unshift(transacao);
+    conta.historicoTransacoes.unshift(transacao)
     
-    return transacao;
+    return transacao
 }
 
 function atualizarHistorico() {
-    const historicoElement = document.getElementById('historicoTransacoes');
+    const historicoElement = document.getElementById('historicoTransacoes')
     
     if (conta.historicoTransacoes.length === 0) {
-        historicoElement.innerHTML = '<p class="text-muted mb-0">Nenhuma transação realizada.</p>';
-        return;
+        historicoElement.innerHTML = '<p class="text-muted mb-0">Nenhuma transação realizada.</p>'
+        return
     }
     
-    let html = '';
+    let html = ''
     conta.historicoTransacoes.forEach(transacao => {
         html += `
             <div class="transaction-item fade-in">
@@ -80,22 +80,22 @@ function atualizarHistorico() {
                     </div>
                 </div>
             </div>
-        `;
-    });
+        `
+    })
     
-    historicoElement.innerHTML = html;
+    historicoElement.innerHTML = html
 }
 
 function processarTransferencia(valor, contaDestino) {
-    const validacao = validarSaldo(valor);
+    const validacao = validarSaldo(valor)
     if (!validacao.valido) {
         return {
             sucesso: false,
             erro: validacao.erro
-        };
+        }
     }
     
-    const transacao = registrarTransacao(valor, contaDestino);
+    const transacao = registrarTransacao(valor, contaDestino)
     
     return {
         sucesso: true,
@@ -104,24 +104,24 @@ function processarTransferencia(valor, contaDestino) {
         valor: valor,
         saldoAtual: conta.saldo,
         mensagem: 'Transferência realizada com sucesso!'
-    };
+    }
 }
 
 document.getElementById('transferenciaForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+    e.preventDefault()
     
-    const valorInput = document.getElementById('valorTransferencia');
-    const destinoInput = document.getElementById('contaDestino');
+    const valorInput = document.getElementById('valorTransferencia')
+    const destinoInput = document.getElementById('contaDestino')
     
-    const valor = parseFloat(valorInput.value);
-    const contaDestino = destinoInput.value.trim();
+    const valor = parseFloat(valorInput.value)
+    const contaDestino = destinoInput.value.trim()
     
     if (!contaDestino) {
-        mostrarResultado(false, 'Por favor, informe o nome do destinatário.');
-        return;
+        mostrarResultado(false, 'Por favor, informe o nome do destinatário.')
+        return
     }
     
-    const resultado = processarTransferencia(valor, contaDestino);
+    const resultado = processarTransferencia(valor, contaDestino)
     
     if (resultado.sucesso) {
         mostrarResultado(true, `
@@ -132,24 +132,24 @@ document.getElementById('transferenciaForm').addEventListener('submit', function
             <p class="mb-2"><strong>Data:</strong> ${resultado.dataTransacao}</p>
             <hr>
             <p class="mb-0"><strong>Novo Saldo:</strong> R$ ${resultado.saldoAtual.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
-        `);
+        `)
         
-        atualizarSaldo();
-        atualizarHistorico();
+        atualizarSaldo()
+        atualizarHistorico()
         
-        valorInput.value = '';
-        destinoInput.value = '';
+        valorInput.value = ''
+        destinoInput.value = ''
     } else {
-        mostrarResultado(false, resultado.erro);
+        mostrarResultado(false, resultado.erro)
     }
-});
+})
 
 function mostrarResultado(sucesso, mensagem) {
-    const resultadoElement = document.getElementById('resultadoTransferencia');
+    const resultadoElement = document.getElementById('resultadoTransferencia')
     
-    resultadoElement.className = sucesso ? 'alert alert-success fade-in' : 'alert alert-danger fade-in';
-    resultadoElement.innerHTML = mensagem;
-    resultadoElement.classList.remove('d-none');
+    resultadoElement.className = sucesso ? 'alert alert-success fade-in' : 'alert alert-danger fade-in'
+    resultadoElement.innerHTML = mensagem
+    resultadoElement.classList.remove('d-none')
     
-    resultadoElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    resultadoElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
 }

@@ -1,0 +1,19 @@
+.invalid-feedback {
+    display: block;
+}
+
+.was-validated .form-control:invalid {
+    border-color: #dc3545;
+}
+
+.was-validated .form-control:valid {
+    border-color: #198754;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+.btn {
+    border-radius: 8px;
+}

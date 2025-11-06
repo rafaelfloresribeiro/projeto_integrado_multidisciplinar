@@ -14,18 +14,18 @@ const transacoes = [
     { id: 13, data: '03/01/2024', descricao: 'Compra Imóvel', valor: -25000.00 },
     { id: 14, data: '02/01/2024', descricao: 'Aluguel', valor: -1800.00 },
     { id: 15, data: '01/01/2024', descricao: 'Transferência Família', valor: 5500.00 }
-];
+]
 
 function carregarTransacoes() {
-    const lista = document.getElementById('lista-transacoes');
+    const lista = document.getElementById('lista-transacoes')
     
     transacoes.forEach(transacao => {
-        const valorAbsoluto = Math.abs(transacao.valor);
-        const isAlta = valorAbsoluto >= 5000;
-        const isEntrada = transacao.valor > 0;
+        const valorAbsoluto = Math.abs(transacao.valor)
+        const isAlta = valorAbsoluto >= 5000
+        const isEntrada = transacao.valor > 0
         
-        const item = document.createElement('div');
-        item.className = `list-group-item ${isAlta ? 'transacao-alta' : ''}`;
+        const item = document.createElement('div')
+        item.className = `list-group-item ${isAlta ? 'transacao-alta' : ''}`
         
         item.innerHTML = `
             <div class="row align-items-center">
@@ -40,10 +40,10 @@ function carregarTransacoes() {
                 </div>
             </div>
             ${isAlta ? '<small class="text-danger mt-1 d-block"><strong>VALOR ELEVADO</strong></small>' : ''}
-        `;
+        `
         
-        lista.appendChild(item);
-    });
+        lista.appendChild(item)
+    })
 }
 
-document.addEventListener('DOMContentLoaded', carregarTransacoes);
+document.addEventListener('DOMContentLoaded', carregarTransacoes)
