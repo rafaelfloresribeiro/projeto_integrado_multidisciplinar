@@ -1,0 +1,152 @@
+/* 
+ * Justificativa das escolhas estéticas:
+ * 
+ * 1. CORES NEUTRAS: Uso de cinzas suaves (#6c757d, #f8f9fa) para transmitir 
+ *    seriedade e profissionalismo, evitando cores vibrantes que podem distrair
+ *    em um sistema financeiro.
+ * 
+ * 2. TIPOGRAFIA CLARA: Font-size generosos (1rem base) e hierarchy visual clara
+ *    para garantir legibilidade, importante em sistemas que lidam com valores.
+ * 
+ * 3. ESPAÇAMENTO GENEROSO: Margens e paddings amplos para criar respiro visual
+ *    e reduzir a densidade de informação, melhorando a experiência do usuário.
+ * 
+ * 4. BORDAS SUTIS: Cantos levemente arredondados (0.375rem) para suavidade 
+ *    sem comprometer o aspecto profissional.
+ * 
+ * 5. FEEDBACK VISUAL CLARO: Cores semânticas do Bootstrap (success, danger)
+ *    para estados, mas com tons mais suaves para não alarmar desnecessariamente.
+ */
+
+:root {
+  --border-radius: 0.375rem;
+  --transition: all 0.2s ease-in-out;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f8f9fa;
+}
+
+.card {
+  border: 1px solid #dee2e6;
+  border-radius: var(--border-radius);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  transition: var(--transition);
+}
+
+.card:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  color: #495057;
+  font-weight: 600;
+}
+
+.btn {
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+  transform: translateY(-1px);
+}
+
+.form-control {
+  border-radius: var(--border-radius);
+  border: 1px solid #ced4da;
+  transition: var(--transition);
+}
+
+.form-control:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.input-group-text {
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+  color: #495057;
+}
+
+/* Estados de resultado */
+.alert-success {
+  background-color: #d1e7dd;
+  border: 1px solid #badbcc;
+  color: #0f5132;
+  border-radius: var(--border-radius);
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  border: 1px solid #f5c2c7;
+  color: #842029;
+  border-radius: var(--border-radius);
+}
+
+/* Histórico de transações */
+.transaction-item {
+  border-bottom: 1px solid #e9ecef;
+  padding: 1rem 0;
+  transition: var(--transition);
+}
+
+.transaction-item:hover {
+  background-color: #f8f9fa;
+}
+
+.transaction-item:last-child {
+  border-bottom: none;
+}
+
+.transaction-code {
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+/* Cabeçalho */
+.display-5 {
+  font-weight: 300;
+  color: #495057;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .display-5 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Animações suaves */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
